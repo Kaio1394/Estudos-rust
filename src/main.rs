@@ -1,13 +1,15 @@
 use std::mem;
 mod sh;
 
+use crate::sh::sh::print_array;
 #[allow(unused_imports)]
-use crate::sh::sh::{stack_and_heap, entry_password, IntOrFloat};
+use crate::sh::sh::{stack_and_heap, entry_password, IntOrFloat, change_array2, get_all_local_memory_array};
 
 #[allow(unused_variables)]
 #[warn(unused_unsafe)]
 #[allow(unused_variables)]
 #[allow(unused_mut)]
+
 fn main() {
     let mut age = 30;
     // criando um ponteiro e apontando para a variável age
@@ -31,4 +33,25 @@ fn main() {
     // entry_password();
     let mut iof = IntOrFloat{i: 123};
     println!("{}", unsafe{ iof.i} );
+
+    let x = 3.0;
+    let y = 1.0;
+    let result = 
+        if y!= 0.0 {Some(x/y)} else {None};
+    match result {
+        Some(z) => println!("{}/{}={}", x, y, z),
+        None => println!("Error")
+    }
+    if let Some(z) = result{
+        println!("Result = {}", z);
+    }
+
+    let mut array = [1, 2, 3, 4, 5];
+    print_array(array);
+    change_array2(&mut array, 1, 13);
+    print_array(array);
+    let array_memorya = get_all_local_memory_array(&mut array);
+    for i in array_memorya{
+        println!("Endereço de memória: {:?}", i);
+    }
 }
