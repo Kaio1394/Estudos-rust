@@ -1,9 +1,10 @@
 use std::mem;
 mod sh;
-
-use crate::sh::sh::print_array;
+mod pm;
+pub mod main2;
+use crate::{pm::pm::pattern_matching, sh::sh::print_array};
 #[allow(unused_imports)]
-use crate::sh::sh::{stack_and_heap, entry_password, IntOrFloat, change_array2, get_all_local_memory_array};
+use crate::sh::sh::{stack_and_heap, entry_password, IntOrFloat, change_array2, get_all_local_memory_array, slice, sum_and_product};
 
 #[allow(unused_variables)]
 #[warn(unused_unsafe)]
@@ -50,8 +51,13 @@ fn main() {
     print_array(array);
     change_array2(&mut array, 1, 13);
     print_array(array);
-    let array_memorya = get_all_local_memory_array(&mut array);
-    for i in array_memorya{
+    let array_memory = get_all_local_memory_array(&mut array);
+    for i in array_memory{
         println!("Endereço de memória: {:?}", i);
     }
+    slice(&mut array[1..2]);
+    let teste = sum_and_product(5, 5);
+    println!("{:?}", &mut array[4..5]);
+
+    pattern_matching();
 }

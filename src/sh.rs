@@ -96,5 +96,11 @@ pub mod sh {
             index += 1;
         }
         return array2;
-    }    
+    } 
+    pub fn slice(slice: &mut [i32]){
+        println!("{:?}", slice);
+    }   
+    pub fn sum_and_product(x: i32, y: i32) -> (i32, i32){
+        return (x + y, x*y);
+    }
 }
