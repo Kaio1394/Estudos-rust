@@ -1,8 +1,7 @@
-use std::mem;
+use std::{any::type_name, collections::{HashMap, HashSet}, mem, ptr::null, vec};
 mod sh;
 mod pm;
-pub mod main2;
-use crate::{pm::pm::pattern_matching, sh::sh::print_array};
+use crate::{pm::pm::{pattern_matching, Point, function_generic}, sh::sh::print_array};
 #[allow(unused_imports)]
 use crate::sh::sh::{stack_and_heap, entry_password, IntOrFloat, change_array2, get_all_local_memory_array, slice, sum_and_product};
 
@@ -10,7 +9,6 @@ use crate::sh::sh::{stack_and_heap, entry_password, IntOrFloat, change_array2, g
 #[warn(unused_unsafe)]
 #[allow(unused_variables)]
 #[allow(unused_mut)]
-
 fn main() {
     let mut age = 30;
     // criando um ponteiro e apontando para a variável age
@@ -60,4 +58,38 @@ fn main() {
     println!("{:?}", &mut array[4..5]);
 
     pattern_matching();
+
+    let p1 = Point{x: 6, y: 7};
+    let p2 = Point{x: 6.0, y: 7.0};
+    let x = 5;
+    function_generic(5, 6);
+    let mut v1: Vec<i32> = Vec::new();
+    v1.push(5);
+    v1.push(15);
+    v1.push(25);
+    v1.push(35);
+    v1.push(45);
+
+    let index: usize = 0;
+    match v1.get(6){
+        Some(x) => println!("{}", x),
+        None => println!("Error.")
+    }
+    while let Some(x) = v1.pop(){println!("{}", x)}
+
+    let mut h = HashMap::new();
+    h.insert( "Kaio", 1);
+    {
+        //Se encontrar a key 'Kaio', será alterado o valor se não insere uma nova key com um novo valor
+        let mut actual = h.entry("Kaio".into()).or_insert(2);
+        *actual = 0;
+    }
+    println!("{:?}", h);
+
+    let mut h = HashSet::new();
+    let added = h.insert("value");
+    let mut h1: HashSet<_> = (1..=5).collect();
+    let mut h2: HashSet<_> = (2..=4).collect();
+    println!("Is {:?} a subset {:?}? {}", h2, h1, h2.is_subset(&h1));
+
 }
